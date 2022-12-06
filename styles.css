@@ -4,8 +4,9 @@ li {
 
 #cardShow {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
+
 
 #app {
     text-align: center;
