@@ -26,7 +26,7 @@
                         <p class="card-text"> Cet artiste a : {{formatNumber(artist.nb_fan)}} fans</p>
                         <p class="card-text"> Cet artiste a sorti : {{artist.nb_album}} albums</p>
 
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <button @click="addFavorite(artist)" class="btn btn-primary">Ajouter aux favoris</button>
                     </div>
                 </div>
             </li>
@@ -48,9 +48,10 @@
         Vue.createApp({
             data() {
                 return {
-                    genres: ['Rap', 'Pop', 'Rock'],
+                    genres: ['Rap', 'Pop', 'Rock', 'Favoris'],
                     currentGenre: 'Rock',
                     artists: [],
+                    favorites: [],
                 };
             },
 
@@ -78,9 +79,13 @@
                         for (let i = 0; i < popArtists.length; i++) {
                             this.fetchArtist(popArtists[i])
                         }
-                    } else {
+                    } else if (currentGenre === 'Rock') {
                         for (let i = 0; i < rockArtists.length; i++) {
                             this.fetchArtist(rockArtists[i])
+                        }
+                    } else {
+                        for (let i = 0; i < this.favorites.length; i++) {
+                            this.fetchArtist(this.favorites[i])
                         }
                     }
                 },
@@ -101,7 +106,11 @@
                     console.log('bien recu');
                     numChanged = Intl.NumberFormat('fr-FR').format(str)
                     return numChanged;
-                }
+                },
+                addFavorite: function (art) {
+                    this.favorites.push(art.name);
+                    console.log(this.favorites)
+                },
 
             },
         }).mount("#app");
