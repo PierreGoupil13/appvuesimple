@@ -5,3 +5,4 @@ Ces informations se base sur le bon goût du développeur.
 
 
 L'API utilisé est celle de Deezer qui est en accès libre et ne nécessite pas de Clé.
+https://developers.deezer.com/api
