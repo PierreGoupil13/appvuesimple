@@ -1,0 +1,12 @@
+li {
+    list-style: none;
+}
+
+#cardShow {
+    display: flex;
+    justify-content: center;
+}
+
+#app {
+    text-align: center;
+}
