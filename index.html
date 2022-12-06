@@ -31,15 +31,21 @@
                 </div>
             </li>
         </div>
+        <div>
+            <div id="ajoutForm">
+                <h5>Ajouter un artiste a cette liste : </h5>
+                <form @submit="addArtist">
+                    <input type="text" v-model="artistToAdd">
+                    <button class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3"></script>
 
     <script>
-        const apiURL =
-            "https://api.deezer.com/artist/";
-        const config = {
-        };
+        const apiURL = "https://api.deezer.com/artist/";
 
         const rapArtists = ['Logic', 'Loud', 'Eminem'];
         const popArtists = ['Aznavour', 'Angele', 'Stromae'];
@@ -52,6 +58,7 @@
                     currentGenre: 'Rock',
                     artists: [],
                     favorites: [],
+                    artistToAdd: '',
                 };
             },
 
@@ -110,6 +117,9 @@
                 addFavorite: function (art) {
                     this.favorites.push(art.name);
                     console.log(this.favorites)
+                },
+                addArtist: function () {
+                    this.fetchArtist(this.artistToAdd)
                 },
 
             },
