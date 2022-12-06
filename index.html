@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Le site du bon gout</title>
+</head>
+
+<body>
+    <div id="app">
+        <template v-for="genre in genres">
+            <input type="radio" :id="genre" :value="genre" name="genre" v-model="currentGenre" />
+            <label :for="genre">{{ genre }}</label>
+        </template>
+
+        <li v-for="artist in artists">
+            <img :src="artist.picture" alt="">
+        </li>
+
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        const apiURL =
+            "https://api.deezer.com/artist/";
+        const config = {
+        };
+
+        const rapArtists = ['Logic', 'Loud', 'Eminem'];
+        const popArtists = ['Aznavour', 'Diams', 'Balavoine'];
+        const rockArtists = ['Metallica', 'Police', 'Slipknot']
+
+        Vue.createApp({
+            data() {
+                return {
+                    genres: ['Rap', 'Pop', 'Rock'],
+                    currentGenre: 'Rock',
+                    artists: [],
+                };
+            },
+
+            created: function () {
+                this.callArtistArr(this.currentGenre)
+            },
+
+            watch: {
+                currentGenre: "callArtistArr",
+            },
+            methods: {
+                callArtistArr: function (currentGenre) {
+                    // Clear the Artist Array
+                    for (let i = 0; i < 3; i++) {
+                        this.artists.pop();
+                    }
+
+                    // Check the current genre selected and then call the API function
+
+                    if (currentGenre === 'Rap') {
+                        for (let i = 0; i < rapArtists.length; i++) {
+                            this.fetchArtist(rapArtists[i])
+                        }
+                    } else if (currentGenre === 'Pop') {
+                        for (let i = 0; i < popArtists.length; i++) {
+                            this.fetchArtist(popArtists[i])
+                        }
+                    } else {
+                        for (let i = 0; i < rockArtists.length; i++) {
+                            this.fetchArtist(rockArtists[i])
+                        }
+                    }
+                },
+                // Gere l'appel a API
+                fetchArtist: async function (artistAct) {
+                    try {
+                        const response = await axios.get(apiURL + artistAct)
+                        console.log(response.data)
+                        this.artists.push(response.data)
+                        //console.log(this.artist.data)
+                        // console.log(self.commits[0].html_url);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                },
+
+            },
+        }).mount("#app");
+    </script>
+</body>
