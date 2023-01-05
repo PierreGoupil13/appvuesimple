@@ -34,10 +34,10 @@
         <div>
             <div id="ajoutForm">
                 <h5>Ajouter un artiste a cette liste : </h5>
-                <form @submit="addArtist">
+                <div>
                     <input type="text" v-model="artistToAdd">
-                    <button class="btn btn-primary">Submit</button>
-                </form>
+                    <button @click="addArtist" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
     </div>
